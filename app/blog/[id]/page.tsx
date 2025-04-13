@@ -142,3 +142,10 @@ export default function BlogPost({ params }: Props) {
     </div>
   )
 }
+
+
+export async function generateStaticParams() {
+  return blogPosts.map((post) => ({
+    id: post.id.toString(),
+  }))
+}
