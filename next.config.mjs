@@ -17,9 +17,9 @@ const nextConfig = {
     unoptimized: true,
   },
   output: 'export',
-  // 设置basePath和assetPrefix，仓库名需要在创建GitHub仓库后替换
-  // basePath: '/your-repo-name',
-  // assetPrefix: '/your-repo-name/',
+  // 设置basePath和assetPrefix，使用实际的仓库名
+  basePath: '/portfolio-website',
+  assetPrefix: '/portfolio-website/',
   experimental: {
     webpackBuildWorker: true,
     parallelServerBuildTraces: true,
