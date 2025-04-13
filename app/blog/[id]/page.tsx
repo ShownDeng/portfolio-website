@@ -87,6 +87,12 @@ type Props = {
   }
 }
 
+export function generateStaticParams() {
+  return blogPosts.map((post) => ({
+    id: post.id.toString()
+  }))
+}
+
 export default function BlogPost({ params }: Props) {
   const post = blogPosts.find((post) => post.id === parseInt(params.id))
 
