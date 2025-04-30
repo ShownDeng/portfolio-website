@@ -8,10 +8,6 @@ const HamsterAnimation = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
 
-  const toggleVisibility = () => {
-    setIsVisible(!isVisible);
-  };
-
   return (
     <AnimationWrapper 
       onMouseEnter={() => setIsHovered(true)}
@@ -36,7 +32,7 @@ const HamsterAnimation = () => {
           })}
         </ToolTip>
       )}
-      <div className="hamster-container" onClick={toggleVisibility}>
+      <div className="hamster-container">
         <HamsterLoader />
       </div>
     </AnimationWrapper>
