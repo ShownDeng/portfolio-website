@@ -1,11 +1,12 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Github, ExternalLink } from "lucide-react"
+import { ExternalLink, Github } from "lucide-react"
 import GradientButton from "@/components/ui/gradient-button"
 import { Button } from "@/components/ui/button"
 import { Card, CardDescription, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import Navbar from "@/components/navbar"
+import ThreeDCard from "@/components/ui/3d-card"
 
 export default function ProjectPage() {
   const projects = [
@@ -20,18 +21,18 @@ export default function ProjectPage() {
     },
     {
       id: 2,
-      title: "E-commerce Platform",
-      description: "A full-stack e-commerce application with product management and payment integration.",
-      image: "/placeholder.svg?height=300&width=600",
-      tags: ["React", "Node.js", "MongoDB", "Stripe"],
+      title: "Computer Software Copyright",
+      description: "An automated program for retracing the evolutionary history of bacterial genes.",
+      image: "/屏幕截图.jpeg",
+      tags: ["Computer Software", "BACT_AG2.0", "Bacterial Genes evolution"],
       github: "https://github.com",
       demo: "https://example.com",
     },
     {
       id: 3,
-      title: "AI Image Generator",
-      description: "An application that generates images using AI based on text prompts.",
-      image: "/placeholder.svg?height=300&width=600",
+      title: "Stay tuned for more updates!",
+      description: "Work in progress...",
+      image: "/mindshare.png",
       tags: ["Python", "TensorFlow", "React", "Flask"],
       github: "https://github.com",
       demo: "https://example.com",
@@ -51,58 +52,43 @@ export default function ProjectPage() {
             </p>
           </div>
 
-          <div className="grid gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12 max-w-4xl mx-auto">
             {projects.map((project) => (
-              <Card key={project.id} className="bg-white/5 backdrop-blur-sm border-white/10 rounded-xl overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10 hover:border-white/20">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="relative aspect-video md:aspect-auto">
+              <ThreeDCard key={project.id} containerClassName="w-full">
+                <Card className="bg-white/5 backdrop-blur-sm border-white/10 rounded-xl overflow-hidden transform transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/20 hover:border-white/30 w-full h-[500px] hover:scale-[1.02]">
+                <div className="flex flex-col h-full">
+                  <div className="relative w-full h-[250px]">
                     <Image
                       src={project.image || "/placeholder.svg"}
                       alt={project.title}
                       fill
-                      className="object-cover rounded-l-lg"
+                      className="object-cover"
                     />
                   </div>
-                  <div className="p-6">
-                    <CardTitle className="text-2xl text-gray-100 mb-2">{project.title}</CardTitle>
-                    <CardDescription className="text-gray-400 mb-4">{project.description}</CardDescription>
-
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {project.tags.map((tag, index) => (
-                        <Badge key={index} variant="outline" className="bg-transparent text-gray-400">
-                          {tag}
-                        </Badge>
-                      ))}
+                  <div className="p-6 flex flex-col justify-between flex-grow">
+                    <div>
+                      <CardTitle className="text-xl text-gray-100 mb-2">{project.title}</CardTitle>
+                      <CardDescription className="text-gray-400 mb-4 line-clamp-2">{project.description}</CardDescription>
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {project.tags.map((tag, index) => (
+                          <Badge key={index} variant="outline" className="bg-transparent text-gray-400">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
-
                     <div className="flex justify-center">
-                      {project.id === 1 ? (
-                        <GradientButton href={project.github}>
-                          <div className="flex items-center gap-2">
-                            <Github className="h-4 w-4" />
-                            View Paper
-                          </div>
-                        </GradientButton>
-                      ) : (
-                        <div className="flex space-x-4">
-                          <Link href={project.github} target="_blank">
-                            <Button variant="outline" size="sm" className="w-full gap-2 rounded-lg transform transition-all duration-300 hover:shadow-lg hover:shadow-zinc-800/50">
-                              <Github className="h-4 w-4" />
-                              Code
-                            </Button>
-                          </Link>
-                          <Link href={project.demo} target="_blank">
-                            <Button variant="default" size="sm" className="w-full gap-2 rounded-lg transform transition-all duration-300 hover:shadow-lg hover:shadow-zinc-800/50">
-                              <ExternalLink className="h-4 w-4" />
-                              Live Demo
-                            </Button>
-                          </Link>
+                      <GradientButton href={project.id === 1 ? project.github : project.id === 2 ? `/project/${project.id}` : project.github}>
+                        <div className="flex items-center gap-2">
+                          <Image src="/rocket-lunch.svg" alt="rocket" width={16} height={16} />
+                          {project.id === 1 ? 'View Paper' : project.id === 2 ? 'View Details' : 'View Project'}
                         </div>
-                      )}
+                      </GradientButton>
                     </div>
                   </div>
                 </div>
-              </Card>
+                </Card>
+              </ThreeDCard>
             ))}
           </div>
         </div>

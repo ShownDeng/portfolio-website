@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import { Calendar } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -17,25 +18,28 @@ type BlogPost = {
 const blogPosts: BlogPost[] = [
   {
     id: 1,
-    title: "Building a Portfolio with Next.js",
-    excerpt: "Learn how to create a modern portfolio website using Next.js and Tailwind CSS.",
-    date: "March 10, 2025",
-    category: "Web Development",
-    image: "/placeholder.svg?height=200&width=400",
+    title: "Gene function enrichment analysis",
+    excerpt: "Learn how to analysis through KEGG and GO.",
+    date: "February 10, 2025",
+    category: "Gene analysis Tools",
+    image: "/知乎KEGG-GO.png",
     content: `
-      Building a portfolio website is an essential step for showcasing your work and skills to potential clients or employers. In this article, we'll explore how to create a modern portfolio website using Next.js and Tailwind CSS.
+      This article introduces a free software called TBtools for conducting KEGG and GO enrichment analysis, which is useful for beginners. It provides a step-by-step guide on how to use TBtools for these analyses.
 
-      Next.js is a powerful React framework that provides features like server-side rendering, static site generation, and automatic code splitting. Combined with Tailwind CSS, you can quickly build beautiful and responsive user interfaces.
+      It details about the process of downloading and installing TBtools and preparing protein sequence FASTA files from databases such as NCBI, Ensembl, or Uniprot. It also explains how to use eggNOG-mapper to analyze the FASTA files and receive results via email. Once the results are obtained,  importing them into TBtools for further analysis and visualization.
 
-      We'll cover topics such as:
-      - Setting up a Next.js project
-      - Implementing responsive layouts with Tailwind CSS
-      - Creating reusable components
-      - Adding animations and transitions
-      - Optimizing images and performance
-      - Deploying your portfolio
+      TBtools is a powerful and open-source tool that simplifies the process of conducting KEGG and GO enrichment anaysis.It provides a user-friendly interface that makes it easy for users to perform these analyses quickly and efficiently.
 
-      Stay tuned for the complete guide!
+
+    The tutorial covers:
+        - Downloading and installing TBtools.
+        - Preparing protein sequence FASTA files from databases like NCBI, Ensembl, or Uniprot.
+        - Using eggNOG-mapper to analyze the FASTA files and receive results via email.
+        - Importing the results into TBtools for further analysis.
+        - Accessing additional files and resources through provided links.
+
+
+      The article aims to help users perform KEGG and GO enrichment analysis efficiently using TBtools.
     `
   },
   {
@@ -131,7 +135,28 @@ export default function BlogPost({ params }: Props) {
               <div className="prose prose-invert prose-gray max-w-none">
                 {post.content?.split('\n').map((paragraph, index) => (
                   <p key={index} className="text-gray-400 mb-4 leading-relaxed">
-                    {paragraph.trim()}
+                    {post.id === 1 ? (
+                      <>
+                        {paragraph.includes("TBtools") ? (
+                          <>
+                            {paragraph.split("TBtools").map((part, i) => (
+                              <>
+                                {part}
+                                {i < paragraph.split("TBtools").length - 1 && (
+                                  <Link href="https://zhuanlan.zhihu.com/p/22933626991" className="text-blue-400 hover:text-blue-300">
+                                    TBtools
+                                  </Link>
+                                )}
+                              </>
+                            ))}
+                          </>
+                        ) : (
+                          paragraph.trim()
+                        )}
+                      </>
+                    ) : (
+                      paragraph.trim()
+                    )}
                   </p>
                 ))}
               </div>

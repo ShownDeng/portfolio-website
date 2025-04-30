@@ -3,6 +3,8 @@ import "./globals.css"
 import type { Metadata } from "next"
 import { Inter, JetBrains_Mono } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
+import { CurveDataProvider } from "@/lib/curve-data-context"
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -15,8 +17,8 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Zephyr - Personal Portfolio",
-  description: "Personal portfolio website of Zephyr",
+  title: "Shown - Personal Portfolio",
+  description: "Personal portfolio website of Shown",
     generator: 'v0.dev'
 }
 
@@ -29,7 +31,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
+          <CurveDataProvider>
+            {children}
+          </CurveDataProvider>
         </ThemeProvider>
       </body>
     </html>

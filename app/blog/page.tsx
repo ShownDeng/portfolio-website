@@ -9,11 +9,11 @@ export default function BlogPage() {
   const blogPosts = [
     {
       id: 1,
-      title: "Building a Portfolio with Next.js",
-      excerpt: "Learn how to create a modern portfolio website using Next.js and Tailwind CSS.",
-      date: "March 10, 2025",
-      category: "Web Development",
-      image: "/placeholder.svg?height=200&width=400",
+      title: "Gene function enrichment analysis ",
+      excerpt: "Learn how to analysis through KEGG and GO.",
+      date: "February 10, 2025",
+      category: "Gene analysis Tools",
+      image: "/知乎KEGG-GO.png",
     },
     {
       id: 2,
@@ -46,26 +46,26 @@ export default function BlogPage() {
             </p>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-8 md:grid-cols-2">
             {blogPosts.map((post) => (
               <Card key={post.id} className="bg-zinc-900/50 border-zinc-800 overflow-hidden rounded-xl transform transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-zinc-800/50 hover:border-zinc-700">
                 <div className="aspect-video relative rounded-t-xl overflow-hidden">
                   <Image src={post.image || "/placeholder.svg"} alt={post.title} fill className="object-cover" />
                 </div>
-                <CardHeader>
-                  <div className="flex justify-between items-center mb-2">
+                <CardHeader className="p-6">
+                  <div className="flex justify-between items-center mb-3">
                     <Badge variant="outline" className="bg-transparent text-gray-400 hover:text-gray-300">
                       {post.category}
                     </Badge>
-                    <div className="flex items-center text-gray-500 text-xs">
-                      <Calendar className="h-3 w-3 mr-1" />
+                    <div className="flex items-center text-gray-500 text-sm">
+                      <Calendar className="h-4 w-4 mr-2" />
                       {post.date}
                     </div>
                   </div>
-                  <CardTitle className="text-gray-100">{post.title}</CardTitle>
+                  <CardTitle className="text-gray-100 text-xl mb-2">{post.title}</CardTitle>
                   <CardDescription className="text-gray-400">{post.excerpt}</CardDescription>
                 </CardHeader>
-                <CardFooter>
+                <CardFooter className="p-6 pt-0">
                   <Link href={`/blog/${post.id}`} className="text-sm text-gray-400 hover:text-white transition-colors">
                     Read more →
                   </Link>
