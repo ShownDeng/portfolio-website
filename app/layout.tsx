@@ -29,7 +29,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans`}>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans pt-24`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <CurveDataProvider>
             {children}
