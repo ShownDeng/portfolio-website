@@ -14,7 +14,12 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
   },
   output: 'export',
   // 设置basePath和assetPrefix，仓库名需要在创建GitHub仓库后替换
@@ -25,6 +30,9 @@ const nextConfig = {
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
   },
+  compiler: {
+    styledComponents: true
+  }
 }
 
 mergeConfig(nextConfig, userConfig)
