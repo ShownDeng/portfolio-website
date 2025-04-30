@@ -42,9 +42,9 @@ export default function Navbar() {
   )
 
   return (
-    <header className="container mx-auto py-4 px-4 flex justify-center items-center relative">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-zinc-900/80 to-zinc-900/60 backdrop-blur-md py-4 px-4 flex justify-center items-center">
       {/* 桌面端导航 */}
-      <nav className="bg-zinc-900/80 backdrop-blur-sm rounded-full px-6 py-2 hidden md:block">
+      <nav className="bg-zinc-900/60 backdrop-blur-sm rounded-full px-6 py-2 hidden md:block">
         <NavLinks />
       </nav>
 
