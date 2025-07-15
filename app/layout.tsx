@@ -4,6 +4,7 @@ import type { Metadata } from "next"
 import { Inter, JetBrains_Mono } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { CurveDataProvider } from "@/lib/curve-data-context"
+import ParticleBackground from "@/components/particle-background"
 
 
 const inter = Inter({
@@ -29,10 +30,22 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans pt-24`}>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans pt-24 relative`}>
+        {/* 粒子背景效果 */}
+        <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+          <ParticleBackground 
+            color="#FFEB3B" 
+            quantity={120} 
+            staticity={30}
+            ease={30}
+            className="absolute inset-0"
+          />
+        </div>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <CurveDataProvider>
-            {children}
+            <div className="relative z-10">
+              {children}
+            </div>
           </CurveDataProvider>
         </ThemeProvider>
       </body>
