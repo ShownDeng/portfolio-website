@@ -137,20 +137,20 @@ ${formState.message}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <label htmlFor="name" className="text-sm text-gray-400">Name</label>
-                      <Input id="name" placeholder="Your name" value={formState.name} onChange={handleInputChange} required className="bg-white/5 backdrop-blur-sm border-white/10 text-gray-200 rounded-lg transition-all duration-300 focus:bg-white/10 focus:border-white/20 hover:bg-white/10" />
+                      <Input id="name" name="name" placeholder="Your name" value={formState.name} onChange={handleInputChange} required className="bg-white/5 backdrop-blur-sm border-white/10 text-gray-200 rounded-lg transition-all duration-300 focus:bg-white/10 focus:border-white/20 hover:bg-white/10" />
                     </div>
                     <div className="space-y-2">
                       <label htmlFor="email" className="text-sm text-gray-400">Email</label>
-                      <Input id="email" type="email" placeholder="Your email" value={formState.email} onChange={handleInputChange} required className="bg-white/5 backdrop-blur-sm border-white/10 text-gray-200 rounded-lg transition-all duration-300 focus:bg-white/10 focus:border-white/20 hover:bg-white/10" />
+                      <Input id="email" name="email" type="email" placeholder="Your email" value={formState.email} onChange={handleInputChange} required className="bg-white/5 backdrop-blur-sm border-white/10 text-gray-200 rounded-lg transition-all duration-300 focus:bg-white/10 focus:border-white/20 hover:bg-white/10" />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="subject" className="text-sm text-gray-400">Subject</label>
-                    <Input id="subject" placeholder="Subject of your message" value={formState.subject} onChange={handleInputChange} required className="bg-white/5 backdrop-blur-sm border-white/10 text-gray-200 rounded-lg transition-all duration-300 focus:bg-white/10 focus:border-white/20 hover:bg-white/10" />
+                    <Input id="subject" name="subject" placeholder="Subject of your message" value={formState.subject} onChange={handleInputChange} required className="bg-white/5 backdrop-blur-sm border-white/10 text-gray-200 rounded-lg transition-all duration-300 focus:bg-white/10 focus:border-white/20 hover:bg-white/10" />
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="message" className="text-sm text-gray-400">Message</label>
-                    <Textarea id="message" placeholder="Your message" rows={6} value={formState.message} onChange={handleInputChange} required className="bg-white/5 backdrop-blur-sm border-white/10 text-gray-200 resize-none rounded-lg transition-all duration-300 focus:bg-white/10 focus:border-white/20 hover:bg-white/10" />
+                    <Textarea id="message" name="message" placeholder="Your message" rows={6} value={formState.message} onChange={handleInputChange} required className="bg-white/5 backdrop-blur-sm border-white/10 text-gray-200 resize-none rounded-lg transition-all duration-300 focus:bg-white/10 focus:border-white/20 hover:bg-white/10" />
                   </div>
                 </div>
               </CardContent>
