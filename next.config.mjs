@@ -23,14 +23,6 @@ const nextConfig = {
     ],
   },
   output: 'export',
-  // 设置basePath和assetPrefix，仓库名需要在创建GitHub仓库后替换
-  // basePath: '/your-repo-name',
-  // assetPrefix: '/your-repo-name/',
-  experimental: {
-    webpackBuildWorker: true,
-    parallelServerBuildTraces: true,
-    parallelServerCompiles: true,
-  },
   compiler: {
     styledComponents: true
   }
