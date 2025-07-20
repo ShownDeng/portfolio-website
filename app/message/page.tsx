@@ -36,30 +36,61 @@ export default function MessagePage() {
         city: 'N/A',
         isp: 'N/A',
       };
+
+      // 优先尝试获取详细信息
       try {
         const response = await fetch('http://ip-api.com/json');
         if (response.ok) {
           const data = await response.json();
           if (data.status === 'success') {
-            ipDetails = {
+            setVisitorInfo(prev => ({
+              ...prev,
               ip: data.query,
               country: data.country,
               city: data.city,
               isp: data.isp,
-            };
+              userAgent: navigator.userAgent,
+              href: window.location.href,
+              screen: `${window.screen.width}x${window.screen.height}`,
+              timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+            }));
+            return; // 成功获取，直接返回
           }
         }
       } catch (error) {
-        console.error("Failed to fetch IP address details:", error);
+        console.error("Failed to fetch detailed IP info, trying fallbacks:", error);
       }
 
-      setVisitorInfo({
-        ...ipDetails,
+      // 如果详细信息获取失败，尝试备用服务
+      const ipServices = [
+        { url: 'https://api.ipify.org?format=json', key: 'ip' },
+        { url: 'https://ipapi.co/json/', key: 'ip' },
+      ];
+
+      let ip = '获取失败';
+      for (const service of ipServices) {
+        try {
+          const response = await fetch(service.url);
+          if (response.ok) {
+            const data = await response.json();
+            if (data[service.key]) {
+              ip = data[service.key];
+              break; // 找到IP，跳出循环
+            }
+          }
+        } catch (err) {
+          console.error(`Fallback service ${service.url} failed:`, err);
+        }
+      }
+
+      setVisitorInfo(prev => ({
+        ...prev,
+        ip,
         userAgent: navigator.userAgent,
         href: window.location.href,
         screen: `${window.screen.width}x${window.screen.height}`,
         timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
-      });
+      }));
     };
 
     getVisitorInfo();
