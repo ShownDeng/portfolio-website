@@ -7,7 +7,12 @@ import { FadeIn } from "@/components/ui/motion"
 import Navbar from "@/components/navbar"
 
 // 导入卫星轨道组件
-import { UniverseScene } from "@/components/universe-scene"
+import dynamic from 'next/dynamic'
+
+const UniverseScene = dynamic(
+  () => import('@/components/universe-scene').then(mod => mod.UniverseScene),
+  { ssr: false }
+)
 
 function Universe() {
   return (
