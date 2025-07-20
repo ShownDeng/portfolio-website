@@ -38,6 +38,11 @@ export default function Navbar() {
           Message
         </Link>
       </li>
+      <li>
+        <Link href="/universe" className="hover:text-white hover:font-bold transition-all hover:scale-110 hover:-translate-y-1 inline-block duration-300">
+          Universe
+        </Link>
+      </li>
     </ul>
   )
 
