@@ -37,45 +37,64 @@ export default function MessagePage() {
         isp: 'N/A',
       };
 
-      // 优先尝试获取详细信息
+      // 优先尝试获取详细信息 (使用 https://ipapi.co/json/)
       try {
-        const response = await fetch('http://ip-api.com/json');
+        const response = await fetch('https://ipapi.co/json/', {
+          method: 'GET',
+          mode: 'cors',
+          cache: 'no-cache'
+        });
         if (response.ok) {
           const data = await response.json();
-          if (data.status === 'success') {
-            setVisitorInfo(prev => ({
-              ...prev,
-              ip: data.query,
-              country: data.country,
-              city: data.city,
-              isp: data.isp,
-              userAgent: navigator.userAgent,
-              href: window.location.href,
-              screen: `${window.screen.width}x${window.screen.height}`,
-              timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
-            }));
-            return; // 成功获取，直接返回
-          }
+          setVisitorInfo(prev => ({
+            ...prev,
+            ip: data.ip,
+            country: data.country_name,
+            city: data.city,
+            isp: data.org, // ipapi.co uses 'org' for ISP
+            userAgent: navigator.userAgent,
+            href: window.location.href,
+            screen: `${window.screen.width}x${window.screen.height}`,
+            timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+          }));
+          return; // 成功获取，直接返回
         }
       } catch (error) {
-        console.error("Failed to fetch detailed IP info, trying fallbacks:", error);
+        console.error("Failed to fetch detailed IP info from ipapi.co, trying fallbacks:", error);
       }
 
       // 如果详细信息获取失败，尝试备用服务
       const ipServices = [
-        { url: 'https://api.ipify.org?format=json', key: 'ip' },
-        { url: 'https://ipapi.co/json/', key: 'ip' },
+        { url: 'https://api.ipify.org?format=json', type: 'json', key: 'ip' },
+        { url: 'https://ipapi.co/json/', type: 'json', key: 'ip' },
+        { url: 'https://api.ip.sb/ip', type: 'text' },
+        { url: 'https://ifconfig.me/ip', type: 'text' },
+        { url: 'https://icanhazip.com', type: 'text' }
       ];
 
       let ip = '获取失败';
       for (const service of ipServices) {
         try {
-          const response = await fetch(service.url);
+          const response = await fetch(service.url, {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'no-cache'
+          });
           if (response.ok) {
-            const data = await response.json();
-            if (data[service.key]) {
-              ip = data[service.key];
-              break; // 找到IP，跳出循环
+            if (service.type === 'json') {
+              const data = await response.json();
+              const potentialIp = data[service.key!];
+              if (potentialIp) {
+                ip = potentialIp;
+                break;
+              }
+            } else {
+              const text = await response.text();
+              const trimmedIp = text.trim();
+              if (/^\d+\.\d+\.\d+\.\d+$/.test(trimmedIp)) {
+                ip = trimmedIp;
+                break;
+              }
             }
           }
         } catch (err) {
