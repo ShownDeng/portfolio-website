@@ -35,9 +35,11 @@ function Satellite({
 
   // 使用 useEffect 来控制鼠标样式
   useEffect(() => {
-    document.body.style.cursor = hovered ? "pointer" : "auto"
-    return () => {
-      document.body.style.cursor = "auto"
+    if (typeof window !== 'undefined') {
+      document.body.style.cursor = hovered ? "pointer" : "auto"
+      return () => {
+        document.body.style.cursor = "auto"
+      }
     }
   }, [hovered])
 
@@ -64,7 +66,11 @@ function Satellite({
           ref={meshRef}
           onPointerOver={() => setHovered(true)}
           onPointerOut={() => setHovered(false)}
-          onClick={() => window.location.href = book.link}
+          onClick={() => {
+            if (typeof window !== 'undefined') {
+              window.location.href = book.link
+            }
+          }}
         >
           {/* 卫星球体 */}
           <sphereGeometry args={[size, 64, 64]} />
