@@ -19,6 +19,9 @@ export default function MessagePage() {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [visitorInfo, setVisitorInfo] = useState({
     ip: '获取中...',
+    country: '',
+    city: '',
+    isp: '',
     userAgent: '',
     href: '',
     screen: '',
@@ -27,19 +30,31 @@ export default function MessagePage() {
 
   useEffect(() => {
     const getVisitorInfo = async () => {
-      let ip = '获取失败';
+      let ipDetails = {
+        ip: '获取失败',
+        country: 'N/A',
+        city: 'N/A',
+        isp: 'N/A',
+      };
       try {
-        const response = await fetch('https://api.ipify.org?format=json');
+        const response = await fetch('http://ip-api.com/json');
         if (response.ok) {
           const data = await response.json();
-          ip = data.ip;
+          if (data.status === 'success') {
+            ipDetails = {
+              ip: data.query,
+              country: data.country,
+              city: data.city,
+              isp: data.isp,
+            };
+          }
         }
       } catch (error) {
-        console.error("Failed to fetch IP address:", error);
+        console.error("Failed to fetch IP address details:", error);
       }
 
       setVisitorInfo({
-        ip,
+        ...ipDetails,
         userAgent: navigator.userAgent,
         href: window.location.href,
         screen: `${window.screen.width}x${window.screen.height}`,
@@ -69,10 +84,12 @@ ${formState.message}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🕐 提交时间: ${new Date().toLocaleString('zh-CN')}
 🌐 用户IP: ${visitorInfo.ip}
+🌍 地理位置: ${visitorInfo.city}, ${visitorInfo.country}
+📡 ISP: ${visitorInfo.isp}
 💻 浏览器: ${visitorInfo.userAgent}
 📄 来源页面: ${visitorInfo.href}
 🔍 屏幕分辨率: ${visitorInfo.screen}
-🌍 时区: ${visitorInfo.timeZone}
+🕒 时区: ${visitorInfo.timeZone}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 `;
 
